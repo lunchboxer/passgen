@@ -30,6 +30,8 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist/passgen
+            dist/passgen-linux-amd64
+            dist/passgen-windows-amd64.exe
+            dist/passgen-darwin-amd64
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
