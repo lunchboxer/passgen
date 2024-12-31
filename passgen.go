@@ -11,6 +11,8 @@ import (
 	"strings"
 	"time"
 	"unicode"
+
+	"github.com/atotto/clipboard"
 )
 
 func main() {
@@ -21,6 +23,7 @@ func main() {
 	capitalize := flag.Bool("c", false, "Capitalize the first letter of each word")
 	addNumber := flag.Bool("n", false, "Add a random number at the end")
 	addSymbol := flag.Bool("y", false, "Add a non-word symbol at the end")
+	clipboardFlag := flag.Bool("b", false, "Copy the password to the clipboard")
 	help := flag.Bool("h", false, "Show this help message")
 	flag.Parse()
 
@@ -50,6 +53,15 @@ func main() {
 
 	// Output the password
 	fmt.Println(password)
+
+	// Copy the password to the clipboard if requested
+	if *clipboardFlag {
+		if err := clipboard.WriteAll(password); err != nil {
+			fmt.Println("Error copying to clipboard:", err)
+		} else {
+			fmt.Println("Password copied to clipboard!")
+		}
+	}
 }
 
 // loadWords reads words from a file and returns them as a slice
@@ -248,6 +260,7 @@ Options:
   -c, --capitalize Capitalize the first letter of each word
   -n, --number     Add a random number at the end
   -y, --symbol     Add a non-word symbol at the end
+  -b, --clipboard  Copy the password to the clipboard
   -h, --help       Show this help message
 `)
 }
