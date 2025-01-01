@@ -249,8 +249,11 @@ func capitalizeFirstLetter(s string) string {
 }
 
 // printHelp displays the help message
+const Version = "0.1.5"
+
 func printHelp() {
-	fmt.Println(`
+	fmt.Printf(`
+Password Generator v%s
 Usage: passgen [options]
 
 Options:
@@ -261,6 +264,7 @@ Options:
   -n, --number     Add a random number at the end
   -y, --symbol     Add a non-word symbol at the end
   -b, --clipboard  Copy the password to the clipboard
+  -v, --version    Show version information
   -h, --help       Show this help message
-`)
+`, Version)
 }
