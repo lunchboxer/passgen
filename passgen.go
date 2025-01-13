@@ -3,17 +3,20 @@ package main
 import (
 	"bufio"
 	"crypto/rand"
+	"embed"
 	"errors"
 	"flag"
 	"fmt"
 	"math/big"
-	"os"
 	"strings"
 	"time"
 	"unicode"
 
 	"github.com/atotto/clipboard"
 )
+
+//go:embed words.txt short-words.txt
+var wordFiles embed.FS
 
 func main() {
 	// Parse command-line arguments
@@ -32,7 +35,7 @@ func main() {
 		return
 	}
 
-	// Load words from words.txt and short-words.txt
+	// Load words from embedded files
 	words, err := loadWords("words.txt")
 	if err != nil {
 		fmt.Println("Error loading words:", err)
@@ -64,9 +67,9 @@ func main() {
 	}
 }
 
-// loadWords reads words from a file and returns them as a slice
+// loadWords reads words from an embedded file and returns them as a slice
 func loadWords(filename string) ([]string, error) {
-	file, err := os.Open(filename)
+	file, err := wordFiles.Open(filename)
 	if err != nil {
 		return nil, err
 	}

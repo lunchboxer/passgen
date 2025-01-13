@@ -30,7 +30,7 @@ Download the latest release for your platform from the [Releases page](https://g
    ```
 3. Build the binary:
    ```bash
-   go build -o passgen
+   go build
    ```
 
 ## Usage
